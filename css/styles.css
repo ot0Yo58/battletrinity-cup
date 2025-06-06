@@ -187,6 +187,10 @@ h2 {
     border-radius: 5px;
     font-weight: bold;
     transition: box-shadow 0.3s ease;
+    white-space: nowrap; /* テキストの折り返しを防止 */
+    width: auto; /* テキストに合わせて幅を自動調整 */
+    min-width: 250px; /* 最小幅を確保 */
+    text-align: center; /* 中央揃え */
 }
 
 .btn:hover {
@@ -588,8 +592,13 @@ footer {
         margin: 10px 0; /* 余白を維持 */
         text-shadow: 1px 1px 3px #000; /* 視認性を高める影を追加 */
     }
-    .btn {
-        padding: 10px 20px;
+        .btn {
+        padding: 10px 20px; /* スマートフォンでコンパクトに */
+        font-size: 1em; /* 読みやすいサイズ */
+        width: 90%; /* 画面幅の90% */
+        max-width: 350px; /* 最大幅を制限 */
+        white-space: nowrap; /* テキストの折り返しを防止 */
+        text-align: center;
     }
     .gallery {
         padding-top: 0;

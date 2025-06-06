@@ -386,13 +386,16 @@ footer {
     background-position: center;
     background-repeat: no-repeat;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* ボタン間の間隔 */
 }
 
 .news-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative; /* absoluteからrelativeに変更 */
+    transform: none; /* 中央揃えのtransformを解除 */
     background: #ff4444;
     color: #fff;
     border: none;
@@ -507,6 +510,15 @@ footer {
 .back-to-top:hover {
     background: #cc3333;
     color: #fff !important;
+}
+
+.overview-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    border: 2px solid #ff4444; /* サイトのテーマに合わせたボーダー */
+    border-radius: 5px;
 }
 
 

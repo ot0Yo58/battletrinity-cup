@@ -380,30 +380,37 @@ footer {
 .news-image {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 400px; /* PC版の高さはそのまま */
     background-image: url('../images/summer3.jpg');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     margin-bottom: 20px;
+}
+
+.news-buttons {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 20px; /* ボタン間の間隔 */
+    gap: 15px; /* ボタン間の間隔 */
+    margin-bottom: 20px;
 }
 
 .news-button {
-    position: relative; /* absoluteからrelativeに変更 */
-    transform: none; /* 中央揃えのtransformを解除 */
+    position: relative;
     background: #ff4444;
     color: #fff;
     border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
+    padding: 10px 20px;
+    font-size: 1.2em; /* PC版で読みやすく */
     cursor: pointer;
     border-radius: 5px;
     transition: background 0.3s ease, box-shadow 0.3s ease;
+    margin: 5px 0;
+    white-space: nowrap; /* テキストの折り返しを防止 */
+    width: auto; /* テキストに合わせて幅を自動調整 */
+    min-width: 250px; /* 最小幅を確保 */
+    text-align: center; /* 中央揃え */
 }
 
 .news-button:hover {
@@ -531,7 +538,9 @@ footer {
         padding-top: 110px;
     }
     header.fixed-header {
-        padding: 10px;
+        height: 110px; /* 現在のpadding-topと一致 */
+        background: rgba(0, 0, 0, 0.8); /* 半透明にしてスライドショーが透けるように */
+        z-index: 1000;
     }
     h1 {
         font-size: 1.8em;
@@ -558,23 +567,26 @@ footer {
 
 
     .hero {
-        padding: 20px 10px;
-        min-height: 120px;
-        height: auto;
+        position: relative;
+        min-height: 200px; /* スライドショーが見える高さを確保 */
+        padding-top: 110px; /* ヘッダー分のスペースを確保 */
+        padding-bottom: 20px;
         margin-bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
     .hero::after {
-        height: 100%;
-        min-height: 120px;
+        z-index: 2; /* スライドショーの上にオーバーレイを配置 */
+        background: rgba(0, 0, 0, 0.3); /* より軽いオーバーレイでスライドショーが見えやすく */
     }
-    .hero h2 {
-        font-size: 1.3em;
+        .hero h2 {
+        font-size: 2em; /* 文字サイズを大きく（1.3em → 2em） */
+        line-height: 1.2; /* 行間を調整して読みやすく */
+        margin: 0; /* 余白を維持 */
+        text-shadow: 2px 2px 4px #000; /* 視認性を高める影 */
     }
     .hero p {
-        font-size: 0.9em;
+        font-size: 1.2em; /* 文字サイズを大きく（0.9em → 1.2em） */
+        margin: 10px 0; /* 余白を維持 */
+        text-shadow: 1px 1px 3px #000; /* 視認性を高める影を追加 */
     }
     .btn {
         padding: 10px 20px;
@@ -594,26 +606,68 @@ footer {
         max-width: 100%;
     }
     .hero-content {
-        min-height: 120px;
+        position: relative;
+        z-index: 3; /* オーバーレイより上に配置 */
+        padding: 10px;
     }
-    .slideshow {
+        .slideshow {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        background-size: contain;
+        height: 100%; /* 親要素（.hero）の高さに合わせる */
+        background-size: cover; /* 画面幅いっぱいに表示 */
         background-position: center;
         background-repeat: no-repeat;
-        z-index: 0;
+        z-index: 1; /* .hero::after (z-index: 1) より下、ヘッダー (z-index: 1000) より下 */
         opacity: 1;
     }
+
     
     .mobile-break {
         display: block;
     }
     .hero-title-part1, .hero-title-part2 {
         display: inline;
+    }
+        .video-container {
+        width: 100%; /* スマートフォンで画面幅いっぱいに */
+        padding-bottom: 56.25%; /* 16:9のアスペクト比（100% * 9/16） */
+        margin: 0 auto 20px; /* 中央寄せ、余白を維持 */
+    }
+    
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    .news-image {
+        height: auto; /* 画像の高さをコンテンツに合わせる */
+        min-height: 200px; /* 画像が見える最低限の高さ */
+        background-position: top center; /* 画像を上部に寄せる */
+        background-size: contain;
+        display: flex;
+        flex-direction: column; /* 縦に並べる */
+        justify-content: flex-start; /* 上に寄せる */
+        align-items: center;
+        padding-top: 10px; /* 上部に少し余白 */
+        padding-bottom: 10px; /* ボタン用の余白 */
+        margin-bottom: 10px;
+    }
+
+    .news-button {
+        position: static;
+        transform: none;
+        width: 90%; /* 画面幅の90% */
+        max-width: 350px; /* 最大幅を少し広げて長いテキストに対応 */
+        padding: 12px 15px; /* スマートフォンで押しやすく */
+        font-size: 1em; /* スマートフォンで読みやすく、文字が小さすぎない */
+        margin: 5px 0;
+        white-space: nowrap; /* テキストの折り返しを防止 */
+        text-align: center;
     }
 }
 

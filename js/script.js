@@ -85,54 +85,37 @@ $(document).ready(function() {
         }, 500);
     });
 
-$(document).ready(function() {
-    // 参加フォームのメンバー追加ボタン
-    $('#add-member').on('click', function() {
-        console.log('参加フォーム：メンバー追加ボタンクリック');
-        var hiddenMembers = $('#members-group .additional-member').filter(function() {
-            return $(this).css('display') === 'none';
-        });
-        console.log('参加フォーム：隠れているメンバー入力欄の数:', hiddenMembers.length);
-
-        if (hiddenMembers.length > 0) {
-            var nextMember = hiddenMembers.first();
-            nextMember.css('display', 'block');
-            console.log('参加フォーム：表示したメンバー入力欄:', nextMember.find('input').attr('id'));
-
-            if (hiddenMembers.length === 1) {
-                $('#add-member').prop('disabled', true);
-                console.log('参加フォーム：メンバー追加ボタンを無効化');
-            }
+    // 参加フォーム：連絡手段の表示状態を更新する関数
+    function updateJoinContactUsernameDisplay() {
+        var contactMethod = $('input[name="contact-method"]:checked').val();
+        console.log('参加フォーム：連絡手段チェック:', contactMethod);
+        if (contactMethod === 'Discord' || contactMethod === 'X') {
+            $('#contact-username-group').css({
+                'display': 'block',
+                'opacity': '0'
+            }).animate({ opacity: 1 }, 300);
+            $('#contact-username').prop('required', true).addClass('form-input');
         } else {
-            console.log('参加フォーム：追加可能なメンバー入力欄がありません');
+            $('#contact-username-group').animate({ opacity: 0 }, 300, function() {
+                $(this).css('display', 'none');
+            });
+            $('#contact-username').prop('required', false).val('').removeClass('form-input');
         }
+        validateForm();
+    }
+
+    // 参加フォーム：連絡手段の変更イベント
+    $('#join-form input[name="contact-method"]').on('change', function() {
+        console.log('参加フォーム：連絡手段変更:', $(this).val());
+        updateJoinContactUsernameDisplay();
     });
 
-    // 運営マッチングフォームのメンバー追加ボタン（前回の修正を保持）
-    $('#matching-add-member').on('click', function() {
-        console.log('運営マッチング：メンバー追加ボタンクリック');
-        var hiddenMembers = $('#matching-members-group .additional-member').filter(function() {
-            return $(this).css('display') === 'none';
-        });
-        console.log('運営マッチング：隠れているメンバー入力欄の数:', hiddenMembers.length);
+    // 参加フォーム：初期表示時に連絡手段をチェック
+    updateJoinContactUsernameDisplay();
 
-        if (hiddenMembers.length > 0) {
-            var nextMember = hiddenMembers.first();
-            nextMember.css('display', 'block');
-            console.log('運営マッチング：表示したメンバー入力欄:', nextMember.find('input').attr('id'));
-
-            if (hiddenMembers.length === 1) {
-                $('#matching-add-member').prop('disabled', true);
-                console.log('運営マッチング：メンバー追加ボタンを無効化');
-            }
-        } else {
-            console.log('運営マッチング：追加可能なメンバー入力欄がありません');
-        }
-    });
-
-    // 以下、既存のバリデーションやフォーム送信コード（変更なし）
+    // 参加フォーム：バリデーション
     function validateForm() {
-        console.log('バリデーション実行');
+        console.log('参加フォーム：バリデーション実行');
         var requiredFields = [
             '#leader-name',
             '#leader-id',
@@ -142,7 +125,8 @@ $(document).ready(function() {
             '#member4',
             'input[name="contact-method"]:checked'
         ];
-        if ($('input[name="contact-method"]:checked').val() === 'Discord' || $('input[name="contact-method"]:checked').val() === 'X') {
+        var contactMethod = $('input[name="contact-method"]:checked').val();
+        if (contactMethod === 'Discord' || contactMethod === 'X') {
             requiredFields.push('#contact-username');
         }
         var allFilled = requiredFields.every(function(id) {
@@ -157,31 +141,16 @@ $(document).ready(function() {
         $('#join-form .form-submit').prop('disabled', !allFilled);
     }
 
-    // 連絡手段の変更時にユーザー名入力欄を表示/非表示
-    $('#join-form input[name="contact-method"]').on('change', function() {
-        var contactMethod = $(this).val();
-        console.log('連絡手段変更:', contactMethod);
-        if (contactMethod === 'Discord' || contactMethod === 'X') {
-            $('#contact-username-group').removeAttr('hidden');
-            $('#contact-username').prop('required', true);
-            $('#contact-username').addClass('form-input');
-        } else {
-            $('#contact-username-group').attr('hidden', true);
-            $('#contact-username').prop('required', false).val('');
-        }
-        validateForm();
-    });
-
-    // 入力変更時にバリデーション
+    // 参加フォーム：入力変更時にバリデーション
     $('#join-form input[required], #join-form input[name="contact-method"], #contact-username').on('input change', function() {
-        console.log('入力変更検知:', $(this).attr('id') || $(this).attr('name'));
+        console.log('参加フォーム：入力変更検知:', $(this).attr('id') || $(this).attr('name'));
         validateForm();
     });
 
-    // フォーム送信（変更なし）
+    // 参加フォーム：フォーム送信
     $('#join-form').on('submit', function(e) {
         e.preventDefault();
-        console.log('フォーム送信');
+        console.log('参加フォーム：フォーム送信');
         var formData = {
             teamName: $('#team-name').val().trim() || '未定',
             leaderName: $('#leader-name').val().trim(),
@@ -214,7 +183,7 @@ $(document).ready(function() {
                       `👤 連絡ユーザー名: ${formData.contactUsername || 'なし'}\n` +
                       `👥 メンバー: ${formData.members.length ? formData.members.join(', ') : 'なし'}\n` +
                       `✍️ 備考: ${formData.remarks || 'なし'}`;
-        var webhookUrl = 'https://discordapp.com/api/webhooks/1375090624398889031/isNg6Ga8cCJ8eaZaHcDNY5vQFGF0tkuRvHsu1QIjLDvchPv2LG9WM_GEac-6Z9avjYvJ'; // ★要置換
+        var webhookUrl = 'https://discordapp.com/api/webhooks/1375090624398889031/isNg6Ga8cCJ8eaZaHcDNY5vQFGF0tkuRvHsu1QIjLDvchPv2LG9WM_GEac-6Z9avjYvJ';
         $.ajax({
             url: webhookUrl,
             type: 'POST',
@@ -227,10 +196,11 @@ $(document).ready(function() {
                 $('#success-message').css('display', 'block');
                 $('#join-form .form-submit').prop('disabled', true);
                 $('#join-form')[0].reset();
-                $('#contact-username-group').attr('hidden', true);
+                $('#contact-username-group').css('display', 'none');
                 $('#contact-username').prop('required', false).val('');
-                $('.additional-member').attr('hidden', true);
+                $('#members-group .additional-member').css('display', 'none');
                 $('#add-member').prop('disabled', false);
+                updateJoinContactUsernameDisplay(); // リセット後に再初期化
                 validateForm();
             },
             error: function(xhr, status, error) {
@@ -240,235 +210,160 @@ $(document).ready(function() {
         });
     });
 
-    // 初期表示時に連絡手段をチェック
-    if ($('input[name="contact-method"]:checked').val() === 'Discord' || $('input[name="contact-method"]:checked').val() === 'X') {
-        $('#contact-username-group').removeAttr('hidden');
-        $('#contact-username').prop('required', true);
-    } else {
-        $('#contact-username-group').attr('hidden', true);
-        $('#contact-username').prop('required', false);
-    }
-    validateForm();
-});
-
-// 入力変更時にバリデーション
-$('#join-form input[required], #join-form input[name="contact-method"], #contact-username').on('input change', function() {
-    console.log('入力変更検知:', $(this).attr('id') || $(this).attr('name'));
-    validateForm();
-});
-
-// フォーム送信（Discord Webhook）
-$('#join-form').on('submit', function(e) {
-    e.preventDefault();
-    console.log('フォーム送信');
-
-    // フォームデータ収集
-    var formData = {
-        teamName: $('#team-name').val().trim() || '未定', // 空の場合「未定」を設定
-        leaderName: $('#leader-name').val().trim(),
-        leaderID: $('#leader-id').val().trim(),
-        members: [
-            $('#member1').val().trim(),
-            $('#member2').val().trim(),
-            $('#member3').val().trim(),
-            $('#member4').val().trim()
-        ],
-        liveStatus: $('input[name="live-status"]:checked').val() === 'yes' ? '可' : '不可',
-        discordStatus: $('input[name="discord-status"]:checked').val() === 'yes' ? '可' : '不可',
-        contactMethod: $('input[name="contact-method"]:checked').val() || '不明',
-        contactUsername: $('#contact-username').val().trim() || 'なし',
-        remarks: $('#remarks').val().trim() || 'なし' // 備考を追加
-    };
-
-    // 追加メンバー
-    if ($('#member5').val().trim()) {
-        formData.members.push($('#member5').val().trim());
-    }
-    if ($('#member6').val().trim()) {
-        formData.members.push($('#member6').val().trim());
-    }
-
-    // Discordメッセージ整形
-    var message = `📢 新しい登録！\n` +
-                  `🏆 チーム: ${formData.teamName}\n` +
-                  `👑 リーダー: ${formData.leaderName || '不明'}\n` +
-                  `🆔 リーダーキャラID: ${formData.leaderID || '不明'}\n` +
-                  `📺 ライブ: ${formData.liveStatus || '不明'}\n` +
-                  `💬 Discord: ${formData.discordStatus || '不明'}\n` +
-                  `📩 連絡手段: ${formData.contactMethod || '不明'}\n` +
-                  `👤 連絡ユーザー名: ${formData.contactUsername || 'なし'}\n` +
-                  `👥 メンバー: ${formData.members.length ? formData.members.join(', ') : 'なし'}\n` +
-                  `✍️ 備考: ${formData.remarks || 'なし'}`;
-
-    // Webhook送信
-    var webhookUrl = 'https://discordapp.com/api/webhooks/1375090624398889031/isNg6Ga8cCJ8eaZaHcDNY5vQFGF0tkuRvHsu1QIjLDvchPv2LG9WM_GEac-6Z9avjYvJ'; // ★要置換
-    $.ajax({
-        url: webhookUrl,
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            content: message
-        }),
-        success: function() {
-            console.log('Webhook送信成功');
-            $('#success-message').css('display', 'block');
-            $('#join-form .form-submit').prop('disabled', true);
-            $('#join-form')[0].reset();
-            $('#contact-username-group').attr('hidden', true);
-            $('#contact-username').prop('required', false).val('');
-            $('.additional-member').attr('hidden', true);
-            $('#add-member').prop('disabled', false);
-            validateForm();
-        },
-        error: function(xhr, status, error) {
-            console.error('Webhook送信失敗:', status, error);
-            alert('送信に失敗しました。もう一度お試しください。');
+    // 参加フォーム：メンバー追加ボタン
+    $('#add-member').on('click', function() {
+        console.log('参加フォーム：メンバー追加ボタンクリック');
+        var hiddenMembers = $('#members-group .additional-member').filter(function() {
+            return $(this).css('display') === 'none';
+        });
+        console.log('参加フォーム：隠れているメンバー入力欄の数:', hiddenMembers.length);
+        if (hiddenMembers.length > 0) {
+            var nextMember = hiddenMembers.first();
+            nextMember.css('display', 'block');
+            console.log('参加フォーム：表示したメンバー入力欄:', nextMember.find('input').attr('id'));
+            if (hiddenMembers.length === 1) {
+                $('#add-member').prop('disabled', true);
+                console.log('参加フォーム：メンバー追加ボタンを無効化');
+            }
+        } else {
+            console.log('参加フォーム：追加可能なメンバー入力欄がありません');
         }
     });
-});
 
-// 初期表示時に連絡手段をチェック
-$(document).ready(function() {
-    if ($('input[name="contact-method"]:checked').val() === 'Discord' || $('input[name="contact-method"]:checked').val() === 'X') {
-        $('#contact-username-group').removeAttr('hidden');
-        $('#contact-username').prop('required', true);
-    } else {
-        $('#contact-username-group').attr('hidden', true);
-        $('#contact-username').prop('required', false);
-    }
-    validateForm();
-});
-
-
-// 運営マッチングフォームバリデーション
-function validateMatchingForm() {
-    console.log('運営マッチングバリデーション実行');
-    var requiredFields = [
-        '#rep-name',
-        '#rep-id',
-        'input[name="matching-contact-method"]:checked'
-    ];
-
-    // 連絡手段がDiscordまたはXの場合、ユーザー名を必須に
-    var contactMethod = $('input[name="matching-contact-method"]:checked').val();
-    if (contactMethod === 'Discord' || contactMethod === 'X') {
-        requiredFields.push('#matching-contact-username');
-    }
-
-    var allFilled = requiredFields.every(function(id) {
-        var value = $(id).val();
-        if (typeof value === 'string') {
-            value = value.trim();
-        }
-        console.log('チェック:', id, '値:', value);
-        return value !== '' && value !== null && value !== undefined;
-    });
-
-    console.log('必須項目すべて入力:', allFilled);
-    $('#matching-join-form .form-submit').prop('disabled', !allFilled);
-}
-
-// 連絡手段の変更時にユーザー名入力欄を表示/非表示
-$('#matching-join-form input[name="matching-contact-method"]').on('change', function() {
-    var contactMethod = $(this).val();
-    console.log('連絡手段変更:', contactMethod);
-    if (contactMethod === 'Discord' || contactMethod === 'X') {
-        $('#matching-contact-username-group').removeAttr('hidden');
-        $('#matching-contact-username').prop('required', true);
-    } else {
-        $('#matching-contact-username-group').attr('hidden', true);
-        $('#matching-contact-username').prop('required', false).val('');
-    }
-    validateMatchingForm(); // バリデーションを即時実行
-});
-
-// 入力変更時にバリデーション
-$('#matching-join-form input[required], #matching-join-form input[name="matching-contact-method"], #matching-contact-username').on('input change', function() {
-    console.log('入力変更検知:', $(this).attr('id') || $(this).attr('name'));
-    validateMatchingForm();
-});
-
-// 運営マッチングフォーム送信（Discord Webhook）
-$('#matching-join-form').on('submit', function(e) {
-    e.preventDefault();
-    console.log('運営マッチングフォーム送信');
-
-    // フォームデータ収集
-    var formData = {
-        repName: $('#rep-name').val().trim(),
-        repID: $('#rep-id').val().trim(),
-        members: [],
-        liveStatus: $('input[name="matching-live-status"]:checked').val() === 'yes' ? '可' : '不可',
-        discordStatus: $('input[name="matching-discord-status"]:checked').val() === 'yes' ? '可' : '不可',
-        contactMethod: $('input[name="matching-contact-method"]:checked').val() || '不明',
-        contactUsername: $('#matching-contact-username').val().trim() || 'なし',
-        remarks: $('#matching-remarks').val().trim() || 'なし'
-    };
-
-    // メンバー入力があれば追加
-    if ($('#matching-member1').val().trim()) {
-        formData.members.push($('#matching-member1').val().trim());
-    }
-    if ($('#matching-member2').val().trim()) {
-        formData.members.push($('#matching-member2').val().trim());
-    }
-    if ($('#matching-member3').val().trim()) {
-        formData.members.push($('#matching-member3').val().trim());
-    }
-    if ($('#matching-member4').val().trim()) {
-        formData.members.push($('#matching-member4').val().trim());
-    }
-
-    // Discordメッセージ整形
-    var message = `📢 運営マッチング新しい登録！\n` +
-                  `👤 代表者: ${formData.repName || '不明'}\n` +
-                  `🆔 代表者キャラID: ${formData.repID || '不明'}\n` +
-                  `📺 ライブ: ${formData.liveStatus || '不明'}\n` +
-                  `💬 Discord: ${formData.discordStatus || '不明'}\n` +
-                  `📩 連絡手段: ${formData.contactMethod || '不明'}\n` +
-                  `👤 連絡ユーザー名: ${formData.contactUsername || 'なし'}\n` +
-                  `👥 メンバー: ${formData.members.length ? formData.members.join(', ') : 'なし'}\n` +
-                  `✍️ 備考: ${formData.remarks || 'なし'}`;
-
-    // Webhook送信
-    var webhookUrl = 'https://discordapp.com/api/webhooks/1380029684838039643/cviJDJj4td8S-JnvsEUf-5uIBjTKGLEy63fdZvIRfahjNxyO5emTddFz8EVQo2bExdl4'; // ★要置換
-    $.ajax({
-        url: webhookUrl,
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            content: message
-        }),
-        success: function() {
-            console.log('運営マッチングWebhook送信成功');
-            $('#matching-success-message').css('display', 'block');
-            $('#matching-join-form .form-submit').prop('disabled', true);
-            $('#matching-join-form')[0].reset();
-            $('#matching-members-group .additional-member').attr('hidden', true);
-            $('#matching-add-member').prop('disabled', false);
-            $('#matching-contact-username-group').attr('hidden', true);
+    // 運営マッチングフォーム：連絡手段の表示状態を更新
+    function updateMatchingContactUsernameDisplay() {
+        var contactMethod = $('input[name="matching-contact-method"]:checked').val();
+        console.log('運営マッチング：連絡手段チェック:', contactMethod);
+        if (contactMethod === 'Discord' || contactMethod === 'X') {
+            $('#matching-contact-username-group').css('display', 'block');
+            $('#matching-contact-username').prop('required', true);
+        } else {
+            $('#matching-contact-username-group').css('display', 'none');
             $('#matching-contact-username').prop('required', false).val('');
-            validateMatchingForm();
-        },
-        error: function(xhr, status, error) {
-            console.error('運営マッチングWebhook送信失敗:', status, error);
-            alert('送信に失敗しました。もう一度お試しください。');
+        }
+        validateMatchingForm();
+    }
+
+    // 運営マッチングフォーム：連絡手段の変更イベント
+    $('#matching-join-form input[name="matching-contact-method"]').on('change', function() {
+        console.log('運営マッチング：連絡手段変更:', $(this).val());
+        updateMatchingContactUsernameDisplay();
+    });
+
+    // 運営マッチングフォーム：初期表示時に連絡手段をチェック
+    updateMatchingContactUsernameDisplay();
+
+    // 運営マッチングフォーム：バリデーション
+    function validateMatchingForm() {
+        console.log('運営マッチングバリデーション実行');
+        var requiredFields = [
+            '#rep-name',
+            '#rep-id',
+            'input[name="matching-contact-method"]:checked'
+        ];
+        var contactMethod = $('input[name="matching-contact-method"]:checked').val();
+        if (contactMethod === 'Discord' || contactMethod === 'X') {
+            requiredFields.push('#matching-contact-username');
+        }
+        var allFilled = requiredFields.every(function(id) {
+            var value = $(id).val();
+            if (typeof value === 'string') {
+                value = value.trim();
+            }
+            console.log('チェック:', id, '値:', value);
+            return value !== '' && value !== null && value !== undefined;
+        });
+        console.log('必須項目すべて入力:', allFilled);
+        $('#matching-join-form .form-submit').prop('disabled', !allFilled);
+    }
+
+    // 運営マッチングフォーム：入力変更時にバリデーション
+    $('#matching-join-form input[required], #matching-join-form input[name="matching-contact-method"], #matching-contact-username').on('input change', function() {
+        console.log('運営マッチング：入力変更検知:', $(this).attr('id') || $(this).attr('name'));
+        validateMatchingForm();
+    });
+
+    // 運営マッチングフォーム：フォーム送信
+    $('#matching-join-form').on('submit', function(e) {
+        e.preventDefault();
+        console.log('運営マッチングフォーム送信');
+        var formData = {
+            repName: $('#rep-name').val().trim(),
+            repID: $('#rep-id').val().trim(),
+            members: [],
+            liveStatus: $('input[name="matching-live-status"]:checked').val() === 'yes' ? '可' : '不可',
+            discordStatus: $('input[name="matching-discord-status"]:checked').val() === 'yes' ? '可' : '不可',
+            contactMethod: $('input[name="matching-contact-method"]:checked').val() || '不明',
+            contactUsername: $('#matching-contact-username').val().trim() || 'なし',
+            remarks: $('#matching-remarks').val().trim() || 'なし'
+        };
+        if ($('#matching-member1').val().trim()) {
+            formData.members.push($('#matching-member1').val().trim());
+        }
+        if ($('#matching-member2').val().trim()) {
+            formData.members.push($('#matching-member2').val().trim());
+        }
+        if ($('#matching-member3').val().trim()) {
+            formData.members.push($('#matching-member3').val().trim());
+        }
+        if ($('#matching-member4').val().trim()) {
+            formData.members.push($('#matching-member4').val().trim());
+        }
+        var message = `📢 運営マッチング新しい登録！\n` +
+                      `👤 代表者: ${formData.repName || '不明'}\n` +
+                      `🆔 代表者キャラID: ${formData.repID || '不明'}\n` +
+                      `📺 ライブ: ${formData.liveStatus || '不明'}\n` +
+                      `💬 Discord: ${formData.discordStatus || '不明'}\n` +
+                      `📩 連絡手段: ${formData.contactMethod || '不明'}\n` +
+                      `👤 連絡ユーザー名: ${formData.contactUsername || 'なし'}\n` +
+                      `👥 メンバー: ${formData.members.length ? formData.members.join(', ') : 'なし'}\n` +
+                      `✍️ 備考: ${formData.remarks || 'なし'}`;
+        var webhookUrl = 'https://discordapp.com/api/webhooks/1375090624398889031/isNg6Ga8cCJ8eaZaHcDNY5vQFGF0tkuRvHsu1QIjLDvchPv2LG9WM_GEac-6Z9avjYvJ';
+        $.ajax({
+            url: webhookUrl,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                content: message
+            }),
+            success: function() {
+                console.log('運営マッチングWebhook送信成功');
+                $('#matching-success-message').css('display', 'block');
+                $('#matching-join-form .form-submit').prop('disabled', true);
+                $('#matching-join-form')[0].reset();
+                $('#matching-members-group .additional-member').css('display', 'none');
+                $('#matching-add-member').prop('disabled', false);
+                $('#matching-contact-username-group').css('display', 'none');
+                $('#matching-contact-username').prop('required', false).val('');
+                updateMatchingContactUsernameDisplay();
+                validateMatchingForm();
+            },
+            error: function(xhr, status, error) {
+                console.error('運営マッチングWebhook送信失敗:', status, error);
+                alert('送信に失敗しました。もう一度お試しください。');
+            }
+        });
+    });
+
+    // 運営マッチングフォーム：メンバー追加ボタン
+    $('#matching-add-member').on('click', function() {
+        console.log('運営マッチング：メンバー追加ボタンクリック');
+        var hiddenMembers = $('#matching-members-group .additional-member').filter(function() {
+            return $(this).css('display') === 'none';
+        });
+        console.log('運営マッチング：隠れているメンバー入力欄の数:', hiddenMembers.length);
+        if (hiddenMembers.length > 0) {
+            var nextMember = hiddenMembers.first();
+            nextMember.css('display', 'block');
+            console.log('運営マッチング：表示したメンバー入力欄:', nextMember.find('input').attr('id'));
+            if (hiddenMembers.length === 1) {
+                $('#matching-add-member').prop('disabled', true);
+                console.log('運営マッチング：メンバー追加ボタンを無効化');
+            }
+        } else {
+            console.log('運営マッチング：追加可能なメンバー入力欄がありません');
         }
     });
-});
-
-// 初期表示時に連絡手段をチェック
-$(document).ready(function() {
-    var contactMethod = $('input[name="matching-contact-method"]:checked').val();
-    if (contactMethod === 'Discord' || contactMethod === 'X') {
-        $('#matching-contact-username-group').removeAttr('hidden');
-        $('#matching-contact-username').prop('required', true);
-    } else {
-        $('#matching-contact-username-group').attr('hidden', true);
-        $('#matching-contact-username').prop('required', false);
-    }
-    validateMatchingForm();
-});
 
     // 初期表示
     console.log('初期表示開始');

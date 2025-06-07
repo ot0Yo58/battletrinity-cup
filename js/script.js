@@ -67,6 +67,10 @@ $(document).ready(function() {
         console.log('表示セクション:', $('.section').map(function() {
             return { id: this.id, display: $(this).css('display') };
         }).get());
+
+        // アクティブなナビリンクを更新
+        $('.nav-link').removeClass('active');
+        $('.nav-link[data-section="' + sectionId + '"]').addClass('active');
     }
 
     // ナビクリック
@@ -78,8 +82,25 @@ $(document).ready(function() {
             console.error('セクションが見つかりません:', sectionId);
             return;
         }
+
+        // 履歴に状態を追加
+        history.pushState({ sectionId: sectionId }, '', '#' + sectionId);
+
         var headerHeight = $('header.fixed-header').outerHeight();
         showSection(sectionId);
+        $('html, body').animate({
+            scrollTop: $('#' + sectionId).offset().top - headerHeight
+        }, 500);
+    });
+
+    // 戻る/進むボタンの処理
+    $(window).on('popstate', function(event) {
+        var state = event.originalEvent.state;
+        var sectionId = state && state.sectionId ? state.sectionId : (window.location.hash.replace('#', '') || 'home');
+        console.log('popstateイベント:', sectionId);
+        showSection(sectionId);
+
+        var headerHeight = $('header.fixed-header').outerHeight();
         $('html, body').animate({
             scrollTop: $('#' + sectionId).offset().top - headerHeight
         }, 500);
@@ -200,7 +221,7 @@ $(document).ready(function() {
                 $('#contact-username').prop('required', false).val('');
                 $('#members-group .additional-member').css('display', 'none');
                 $('#add-member').prop('disabled', false);
-                updateJoinContactUsernameDisplay(); // リセット後に再初期化
+                updateJoinContactUsernameDisplay();
                 validateForm();
             },
             error: function(xhr, status, error) {
@@ -368,5 +389,6 @@ $(document).ready(function() {
     // 初期表示
     console.log('初期表示開始');
     var initialSection = window.location.hash.replace('#', '') || 'home';
+    history.replaceState({ sectionId: initialSection }, '', '#' + initialSection);
     showSection(initialSection);
 });

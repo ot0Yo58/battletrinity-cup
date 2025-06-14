@@ -25,24 +25,24 @@
     </header>
 
     <div class="container">
-<!-- ホーム -->
-<section id="home" class="section">
-    <div class="hero">
-        <div class="slideshow"></div>
-        <div class="hero-content">
-            <h2><span class="hero-title-part1">圧倒的大規模な</span><br class="mobile-break"><span class="hero-title-part2">大会がここに！</span></h2>
-            <p>熱い戦いが待ってるぜ！</p>
-            <a href="#news" class="btn nav-link" data-section="news">第三回サマーカップエントリーはこちら</a>
-        </div>
-    </div>
-</section>
+        <!-- ホーム -->
+        <section id="home" class="section">
+            <div class="hero">
+                <div class="slideshow"></div>
+                <div class="hero-content">
+                    <h2><span class="hero-title-part1">圧倒的大規模な</span><br class="mobile-break"><span class="hero-title-part2">大会がここに！</span></h2>
+                    <p>熱い戦いが待ってるぜ！</p>
+                    <a href="#news" class="btn nav-link" data-section="news">第三回サマーカップエントリーはこちら</a>
+                </div>
+            </div>
+        </section>
+
         <!-- 最新情報 -->
         <section id="news" class="section">
             <h2>最新情報</h2>
-            <div class="news-image"></div> <!-- ポスター画像のみ -->
-            <div class="news-buttons"> <!-- ボタンを新しいコンテナに -->
-                <button class="btn news-button" data-section="form-section">5人以上のチームで参加ご希望の方</button>
-                <button class="btn news-button" data-section="matching-form-section">1名以上4人以下で参加ご希望の方</button>
+            <div class="news-image"></div>
+            <div class="news-buttons">
+                <a href="#entry" class="btn news-button" data-section="entry">エントリーはこちら</a>
             </div>
             <div class="news-content">
                 <h3>大会概要</h3>
@@ -94,7 +94,6 @@
                 </a>
             </div>
         </section>
-        
 
         <!-- 優勝者 -->
         <section id="winners" class="section">
@@ -134,164 +133,44 @@
                     <li>集まった人数が5人に満たなくても、運営マッチングで調整して1人から参加可能です！</li>
                 </ul>
 
-            <h3>運営マッチング</h3>
+                <h3>運営マッチング</h3>
                 <ul style="list-style-type: none; margin: 0; padding: 0;">
                     <li>参加したいけど、5人集まらない...チームで遊ぶより気楽に一期一会で遊びたい！</li>
                     <li>そんな要望を叶えるのが、運営マッチングです。</li>
                     <li>運営マッチングとは、少ない人数での参加希望の方々を運営からそれぞれに紹介するシステムです。</li>
                     <li>真剣に参加も、気楽に参加も本人たちの自由ですが、そういった温度感のミスマッチにも配慮いたします。</li>                
                 </ul>
-                <img src="images/info.png" alt="運営マッチングの詳細情報" class="overview-image"> <!-- 画像を追加 -->
+                <img src="images/info.png" alt="運営マッチングの詳細情報" class="overview-image">
             </div>
         </section>
 
-        <!-- 参加フォーム -->
-        <section id="form-section" class="section">
-    <h2>参加フォーム</h2>
-    <form id="join-form" class="join-form">
-        <div class="form-group">
-            <label for="team-name">チーム名: <span class="optional">※後からでも大丈夫です</span></label>
-            <input type="text" id="team-name" class="form-input">
-        </div>
-        <div class="form-group">
-            <label for="leader-name">リーダー名: <span class="required">(必須)</span></label>
-            <input type="text" id="leader-name" required class="form-input">
-        </div>
-        <div class="form-group">
-            <label for="leader-id">リーダーのドラクエ内キャラクターID: 入力例:ヤング・ガン（DO-610-783） <span class="required">(必須)</span></label>
-            <input type="text" id="leader-id" required class="form-input">
-        </div>
-        <div class="form-group radio-group">
-            <label>ライブ配信可否:</label>
-            <input type="radio" id="live-yes" name="live-status" value="yes" checked required class="radio-input">
-            <label for="live-yes" class="radio-label">可</label>
-            <input type="radio" id="live-no" name="live-status" value="no" class="radio-input">
-            <label for="live-no" class="radio-label">不可</label>
-        </div>
-        <div class="form-group radio-group">
-            <label>Discord参加可否:</label>
-            <input type="radio" id="discord-yes" name="discord-status" value="yes" checked required class="radio-input">
-            <label for="discord-yes" class="radio-label">可</label>
-            <input type="radio" id="discord-no" name="discord-status" value="no" class="radio-input">
-            <label for="discord-no" class="radio-label">不可</label>
-        </div>
-        <div class="form-group radio-group">
-            <label>連絡手段: <span class="required">(必須)</span></label>
-            <input type="radio" id="contact-discord" name="contact-method" value="Discord" checked required class="radio-input">
-            <label for="contact-discord" class="radio-label">Discord</label>
-            <input type="radio" id="contact-x" name="contact-method" value="X" class="radio-input">
-            <label for="contact-x" class="radio-label">X</label>
-            <input type="radio" id="contact-dqfriend" name="contact-method" value="ドラクエフレンドチャット" class="radio-input">
-            <label for="contact-dqfriend" class="radio-label">ドラクエフレンドチャット</label>
-        </div>
-        <div class="form-group" id="contact-username-group" hidden>
-            <label for="contact-username">DiscordもしくはXを選んだ方は、DiscordもしくはXのユーザー名を入力してください。 <span class="required">(必須)</span></label>
-            <input type="text" id="contact-username" class="form-input">
-        </div>
-        <div class="form-group" id="members-group">
-            <label>メンバー (4人の名前): <span class="required">(必須)</span></label>
-            <div class="form-group">
-                <label for="member1">メンバー1:</label>
-                <input type="text" id="member1" required class="form-input">
+        <!-- エントリー -->
+        <section id="entry" class="section">
+            <h2>エントリー</h2>
+            <div class="entry-content">
+                <p>エントリーされる方は、<strong>ヤング・ガン（DO-610-783）</strong> もしくは <strong>ミニア（UQ-371-321）</strong> までご連絡ください。</p>
+                <p>以下内容をご準備いただくことでスムーズにやり取りが進みますので、よろしくお願いします。</p>
+                <h3>5人以上のチームで参加ご希望の方</h3>
+                <ol>
+                    <li>チーム名</li>
+                    <li>リーダー</li>
+                    <li>リーダーキャラID</li>
+                    <li>配信可能か</li>
+                    <li>ディスコード可能か</li>
+                    <li>連絡手段</li>
+                    <li>メンバー</li>
+                </ol>
+                <h3>1名以上4人以下で参加ご希望の方</h3>
+                <ol>
+                    <li>代表者</li>
+                    <li>代表者キャラID</li>
+                    <li>配信可能か</li>
+                    <li>ディスコード可能か</li>
+                    <li>連絡手段</li>
+                    <li>メンバー</li>
+                </ol>
             </div>
-            <div class="form-group">
-                <label for="member2">メンバー2:</label>
-                <input type="text" id="member2" required class="form-input">
-            </div>
-            <div class="form-group">
-                <label for="member3">メンバー3:</label>
-                <input type="text" id="member3" required class="form-input">
-            </div>
-            <div class="form-group">
-                <label for="member4">メンバー4:</label>
-                <input type="text" id="member4" required class="form-input">
-            </div>
-            <div class="form-group additional-member" hidden>
-                <label for="member5">メンバー5:</label>
-                <input type="text" id="member5" class="form-input">
-            </div>
-            <div class="form-group additional-member" hidden>
-                <label for="member6">メンバー6:</label>
-                <input type="text" id="member6" class="form-input">
-            </div>
-            <button type="button" id="add-member" class="btn">メンバー追加</button>
-        </div>
-        <div class="form-group">
-            <label for="remarks">備考:</label>
-            <textarea id="remarks" rows="3" class="form-textarea"></textarea>
-        </div>
-        <button type="submit" class="btn form-submit" disabled>送信</button>
-    </form>
-    <div id="success-message" style="display: none;">送信しました！ありがとうございます！</div>
-</section>
-
-        <!-- 運営マッチング参加フォーム -->
-<section id="matching-form-section" class="section">
-    <h2>運営マッチング参加フォーム</h2>
-    <form id="matching-join-form" class="join-form">
-        <div class="form-group">
-            <label for="rep-name">代表者(運営とやり取りされる方): <span class="required">(必須)</span></label>
-            <input type="text" id="rep-name" required class="form-input">
-        </div>
-        <div class="form-group">
-            <label for="rep-id">代表者のドラクエ内キャラクターID: 入力例:ヤング・ガン（DO-610-783） <span class="required">(必須)</span></label>
-            <input type="text" id="rep-id" required class="form-input">
-        </div>
-        <div class="form-group radio-group">
-            <label>ライブ配信可否:</label>
-            <input type="radio" id="matching-live-yes" name="matching-live-status" value="yes" checked required class="radio-input">
-            <label for="matching-live-yes" class="radio-label">可</label>
-            <input type="radio" id="matching-live-no" name="matching-live-status" value="no" class="radio-input">
-            <label for="matching-live-no" class="radio-label">不可</label>
-        </div>
-        <div class="form-group radio-group">
-            <label>Discord参加可否:</label>
-            <input type="radio" id="matching-discord-yes" name="matching-discord-status" value="yes" checked required class="radio-input">
-            <label for="matching-discord-yes" class="radio-label">可</label>
-            <input type="radio" id="matching-discord-no" name="matching-discord-status" value="no" class="radio-input">
-            <label for="matching-discord-no" class="radio-label">不可</label>
-        </div>
-        <div class="form-group radio-group">
-            <label>連絡手段: <span class="required">(必須)</span></label>
-            <input type="radio" id="matching-contact-discord" name="matching-contact-method" value="Discord" checked required class="radio-input">
-            <label for="matching-contact-discord" class="radio-label">Discord</label>
-            <input type="radio" id="matching-contact-x" name="matching-contact-method" value="X" class="radio-input">
-            <label for="matching-contact-x" class="radio-label">X</label>
-            <input type="radio" id="matching-contact-dqfriend" name="matching-contact-method" value="ドラクエフレンドチャット" class="radio-input">
-            <label for="matching-contact-dqfriend" class="radio-label">ドラクエフレンドチャット</label>
-        </div>
-        <div class="form-group" id="matching-contact-username-group" hidden>
-            <label for="matching-contact-username">DiscordもしくはXを選んだ方は、DiscordもしくはXのユーザー名を入力してください。 <span class="required">(必須)</span></label>
-            <input type="text" id="matching-contact-username" class="form-input">
-        </div>
-        <div class="form-group" id="matching-members-group">
-            <label>メンバー:</label> <!-- 必須マークを削除 -->
-            <div class="form-group">
-                <label for="matching-member1">メンバー1:</label>
-                <input type="text" id="matching-member1" class="form-input"> <!-- required属性を削除 -->
-            </div>
-            <div class="form-group additional-member" hidden>
-                <label for="matching-member2">メンバー2:</label>
-                <input type="text" id="matching-member2" class="form-input">
-            </div>
-            <div class="form-group additional-member" hidden>
-                <label for="matching-member3">メンバー3:</label>
-                <input type="text" id="matching-member3" class="form-input">
-            </div>
-            <div class="form-group additional-member" hidden>
-                <label for="matching-member4">メンバー4:</label>
-                <input type="text" id="matching-member4" class="form-input">
-            </div>
-            <button type="button" id="matching-add-member" class="btn">メンバー追加</button>
-        </div>
-        <div class="form-group">
-            <label for="matching-remarks">備考:</label>
-            <textarea id="matching-remarks" rows="3" class="form-textarea"></textarea>
-        </div>
-        <button type="submit" class="btn form-submit" disabled>送信</button>
-    </form>
-    <div id="matching-success-message" style="display: none;">送信しました！ありがとうございます！</div>
-</section>
+        </section>
 
 <!-- 第一回サマーカップ -->
 <section id="summer1" class="section" style="display: none;">

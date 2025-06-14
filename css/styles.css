@@ -290,6 +290,32 @@ footer {
     border-top: 2px solid #ff4444;
 }
 
+.entry-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.entry-content h3 {
+    color: #ff4444;
+    margin-top: 20px;
+}
+
+.entry-content p {
+    margin: 10px 0;
+}
+
+.entry-content ol {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.entry-content li {
+    margin-bottom: 5px;
+}
+/*
 .form-section {
     background: #222;
     padding: 30px;
@@ -323,7 +349,7 @@ footer {
 .form-input,
 .form-textarea {
     width: 100%;
-    max-width: 500px; /* 入力枠と統一 */
+    max-width: 500px;
     padding: 10px;
     background: #333;
     border: 2px solid #444;
@@ -331,7 +357,7 @@ footer {
     color: #fff;
     font-size: 1em;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    box-sizing: border-box; /* パディング込み */
+    box-sizing: border-box;
 }
 
 .form-input:focus,
@@ -380,7 +406,7 @@ footer {
 .radio-label:hover {
     background: #555;
 }
-
+*/
 .news-image {
     position: relative;
     width: 100%;

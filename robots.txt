@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ot0y058.github.io/battle-trinity-site/sitemap.xml
+Sitemap: https://ot0yo58.github.io/battletrinity-cup/sitemap.xml

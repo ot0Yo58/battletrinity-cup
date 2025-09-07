@@ -1,10 +1,11 @@
-// js/script.js （トップページだけSPA処理を動かす安全版）
+// js/script.js （トップページだけSPA処理を動かす安全版＋URL解決を堅牢化）
 
-// headにEvent JSON-LDが無ければ保険で注入
+// headにEvent JSON-LDが無ければ保険で注入（相対URLを安全に解決）
 (function() {
   var hasEventJsonLd = !!document.querySelector('script[type="application/ld+json"]');
   if (!hasEventJsonLd) {
-    var base = location.href.split('#')[0];
+    // 例: https://ot0yo58.github.io/battletrinity-cup/summer1.html → root は https://.../battletrinity-cup/
+    var root = new URL('.', location.href).href;
     var ld = {
       "@context":"https://schema.org",
       "@type":"Event",
@@ -12,11 +13,11 @@
       "startDate":"2025-07-26T22:00:00+09:00",
       "eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode",
       "eventStatus":"https://schema.org/EventScheduled",
-      "location":{"@type":"VirtualLocation","url": base + "#news"},
+      "location":{"@type":"VirtualLocation","url": root + "#news"},
       "description":"抽選会は 2025-07-19 22:00。エントリー期間は 06/06〜07/18。",
       "organizer":{"@type":"Organization","name":"バトルトリニティカップ運営"},
-      "image":[base + "images/summer3.jpg"],
-      "url": base
+      "image":[ new URL('images/summer3.jpg', root).href ],
+      "url": root
     };
     var s = document.createElement('script');
     s.type = 'application/ld+json';

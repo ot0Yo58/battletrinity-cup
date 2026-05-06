@@ -1,111 +1,126 @@
-// js/script.js （トップページだけSPA処理を動かす安全版＋URL解決を堅牢化）
+document.addEventListener("DOMContentLoaded", () => {
+  const menuButton = document.querySelector(".menu-button");
+  const pageLinks = document.querySelectorAll(".page-link");
+  const sections = document.querySelectorAll(".page-section");
 
-// headにEvent JSON-LDが無ければ保険で注入（相対URLを安全に解決）
-(function() {
-  var hasEventJsonLd = !!document.querySelector('script[type="application/ld+json"]');
-  if (!hasEventJsonLd) {
-    // 例: https://ot0yo58.github.io/battletrinity-cup/summer1.html → root は https://.../battletrinity-cup/
-    var root = new URL('.', location.href).href;
-    var ld = {
-      "@context":"https://schema.org",
-      "@type":"Event",
-      "name":"バトルトリニティ 第三回サマーカップ",
-      "startDate":"2025-07-26T22:00:00+09:00",
-      "eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus":"https://schema.org/EventScheduled",
-      "location":{"@type":"VirtualLocation","url": root + "#news"},
-      "description":"抽選会は 2025-07-19 22:00。エントリー期間は 06/06〜07/18。",
-      "organizer":{"@type":"Organization","name":"バトルトリニティカップ運営"},
-      "image":[ new URL('images/summer3.jpg', root).href ],
-      "url": root
-    };
-    var s = document.createElement('script');
-    s.type = 'application/ld+json';
-    s.text = JSON.stringify(ld);
-    document.head.appendChild(s);
-  }
-})();
+  const winnerModal = document.querySelector(".winner-modal");
+  const winnerModalImage = document.querySelector(".winner-modal-image");
+  const winnerModalEvent = document.querySelector(".winner-modal-event");
+  const winnerModalTeam = document.querySelector(".winner-modal-team");
+  const winnerModalMembers = document.querySelector(".winner-modal-members");
+  const winnerModalMessage = document.querySelector(".winner-modal-message");
+  const winnerModalTriggers = document.querySelectorAll(".winner-modal-trigger");
+  const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
 
-document.addEventListener('DOMContentLoaded', function() {
-  // ここでトップページかどうかを判定（#home があればトップ）
-  var isTop = !!document.getElementById('home');
+  const validPages = Array.from(sections).map((section) => section.id);
 
-  // ===== スライドショー（トップに .slideshow があるときだけ動作）=====
-  if (document.querySelector('.slideshow')) {
-    var slideshowImages = [
-      'images/summer1.jpg',
-      'images/winter1.jpg',
-      'images/summer2.jpg',
-      'images/winter2.jpg'
-    ];
-    var currentImageIndex = 0;
+  const closeMenu = () => {
+    document.body.classList.remove("menu-open");
 
-    function updateSlideshow() {
-      $('.slideshow').animate({ opacity: 0 }, 2000, function() {
-        currentImageIndex = (currentImageIndex + 1) % slideshowImages.length;
-        $(this).css({
-          'background-image': 'url("' + slideshowImages[currentImageIndex] + '")',
-          'background-size': 'contain',
-          'background-position': 'center',
-          'background-repeat': 'no-repeat',
-          'opacity': '1'
-        }).animate({ opacity: 1 }, 2000, function() {
-          setTimeout(updateSlideshow, 4000);
-        });
-      });
+    if (menuButton) {
+      menuButton.setAttribute("aria-expanded", "false");
     }
+  };
 
-    $('.slideshow').css({
-      'background-image': 'url("' + slideshowImages[0] + '")',
-      'background-size': 'contain',
-      'background-position': 'center',
-      'background-repeat': 'no-repeat',
-      'opacity': '1'
+  const showPage = (pageId, shouldUpdateHash = true) => {
+    const targetPage = validPages.includes(pageId) ? pageId : "home";
+
+    sections.forEach((section) => {
+      section.classList.toggle("active", section.id === targetPage);
     });
-    setTimeout(updateSlideshow, 4000);
-  }
 
-  // ===== 以降のSPAナビはトップページだけで実行 =====
-  if (!isTop) {
-    // 個別ページでは何もしない（表示を隠さない）
-    return;
-  }
+    pageLinks.forEach((link) => {
+      link.classList.toggle("active", link.dataset.page === targetPage);
+    });
 
-  function showSection(sectionId) {
-    $('.section').hide();
-    $('.nav-link').removeClass('active');
+    closeMenu();
 
-    if (['home','events','winners','overview','news','entry'].includes(sectionId)) {
-      if (['home','events','winners','overview'].includes(sectionId)) {
-        $('#home,#events,#winners,#overview').show();
-      } else {
-        $('#' + sectionId).show();
-      }
-      $('.nav-link[data-section="' + sectionId + '"]').addClass('active');
-    } else {
-      $('#home,#events,#winners,#overview').show();
-      $('.nav-link[data-section="home"]').addClass('active');
+    if (shouldUpdateHash) {
+      history.pushState(null, "", `#${targetPage}`);
     }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+  if (menuButton) {
+    menuButton.addEventListener("click", () => {
+      const isOpen = document.body.classList.toggle("menu-open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
   }
 
-  // ヘッダーナビ＆「エントリーはこちら」のみJSでスムーズスクロール
-  $(document).on('click', '.nav-link, .news-button.nav-link', function(e) {
-    e.preventDefault();
-    var sectionId = $(this).data('section');
-    history.pushState({ sectionId: sectionId }, '', '#' + sectionId);
-    showSection(sectionId);
-    var headerHeight = $('header.fixed-header').outerHeight();
-    $('html, body').animate({ scrollTop: $('#' + sectionId).offset().top - headerHeight }, 500);
+  pageLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const pageId = link.dataset.page;
+      showPage(pageId);
+    });
   });
 
-  $(window).on('popstate', function(event) {
-    var state = event.originalEvent.state;
-    var sectionId = state && state.sectionId ? state.sectionId : (location.hash.replace('#','') || 'home');
-    showSection(sectionId);
-    var headerHeight = $('header.fixed-header').outerHeight();
-    $('html, body').animate({ scrollTop: $('#' + sectionId).offset().top - headerHeight }, 500);
+  window.addEventListener("popstate", () => {
+    const pageId = location.hash.replace("#", "") || "home";
+    showPage(pageId, false);
   });
 
-  var initialSection = location.hash.replace('#','') || 'home';
-  showSection(initialSection);
+  const initialPage = location.hash.replace("#", "") || "home";
+  showPage(initialPage, false);
+
+  const openWinnerModal = (card) => {
+    if (!winnerModal) return;
+
+    const eventName = card.dataset.event || "";
+    const teamName = card.dataset.team || "";
+    const members = card.dataset.members || "";
+    const image = card.dataset.image || "";
+    const message = card.dataset.message || "";
+
+    winnerModalEvent.textContent = eventName;
+    winnerModalTeam.textContent = teamName;
+    winnerModalMembers.textContent = members;
+    winnerModalMessage.textContent = message;
+
+    winnerModalImage.src = image;
+    winnerModalImage.alt = `${eventName} 優勝チーム ${teamName}`;
+
+    winnerModal.classList.add("active");
+    winnerModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  };
+
+  const closeWinnerModal = () => {
+    if (!winnerModal) return;
+
+    winnerModal.classList.remove("active");
+    winnerModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  };
+
+  winnerModalTriggers.forEach((card) => {
+    card.addEventListener("click", () => {
+      openWinnerModal(card);
+    });
+
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openWinnerModal(card);
+      }
+    });
+  });
+
+  modalCloseButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      closeWinnerModal();
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeWinnerModal();
+    }
+  });
 });

@@ -1,198 +1,460 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta name="google-site-verification" content="m_o6IfiTvMQwenbMY1OG45kR3wYyc2ab1l_6fPuMbmI" />
+  <meta name="google-site-verification" content="m_o6IfiTvMQwenbMY1OG45kR3wYyc2ab1l_6fPuMbmI" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>バトルトリニティカップ | 公式サイト</title>
-  <meta name="description" content="ドラゴンクエストX バトルトリニティの非公式大型大会。エントリー方法、最新情報、歴代優勝チーム、運営マッチングの案内など。">
-  <link rel="canonical" href="https://ot0y058.github.io/battle-trinity-site/" />
+  <title>BATTLE TRINITY CUP | 公式サイト</title>
+  <meta name="description" content="ドラゴンクエストX バトルトリニティの非公式大型大会。4th BATTLE TRINITY SUMMER CUPの開催情報、エントリー方法、過去大会、歴代優勝チームを掲載。">
+  <link rel="canonical" href="https://ot0yo58.github.io/battletrinity-cup/" />
   <meta name="robots" content="index,follow" />
 
-  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="バトルトリニティカップ | 公式サイト">
-  <meta property="og:description" content="非公式大型大会の最新情報とエントリー案内。">
-  <meta property="og:image" content="https://ot0y058.github.io/battle-trinity-site/images/summer3.jpg">
-  <meta property="og:url" content="https://ot0y058.github.io/battle-trinity-site/">
+  <meta property="og:title" content="BATTLE TRINITY CUP | 公式サイト">
+  <meta property="og:description" content="ドラゴンクエストX バトルトリニティの非公式大型大会。4th BATTLE TRINITY SUMMER CUP開催決定。">
+  <meta property="og:image" content="https://ot0yo58.github.io/battletrinity-cup/images/summer4.png">
+  <meta property="og:url" content="https://ot0yo58.github.io/battletrinity-cup/">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/script.js" defer></script>
 
-  <!-- 構造化データ（Event：第三回サマーカップ） -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "バトルトリニティ 第三回サマーカップ",
-    "startDate": "2025-07-26T22:00:00+09:00",
+    "name": "4th BATTLE TRINITY SUMMER CUP",
+    "startDate": "2026-09-12",
     "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
-    "location": { "@type": "VirtualLocation", "url": "https://ot0y058.github.io/battle-trinity-site/#news" },
-    "description": "抽選会は 2025-07-19 22:00。エントリー期間は 06/06〜07/18。",
-    "organizer": { "@type": "Organization", "name": "バトルトリニティカップ運営" },
-    "image": ["https://ot0y058.github.io/battle-trinity-site/images/summer3.jpg"],
-    "url": "https://ot0y058.github.io/battle-trinity-site/"
+    "location": {
+      "@type": "VirtualLocation",
+      "url": "https://ot0yo58.github.io/battletrinity-cup/#latest"
+    },
+    "description": "ドラゴンクエストX バトルトリニティの非公式大型大会。4th BATTLE TRINITY SUMMER CUPは2026年09月12日開催予定。その他詳細は未定です。",
+    "organizer": {
+      "@type": "Organization",
+      "name": "BATTLE TRINITY CUP 運営"
+    },
+    "image": [
+      "https://ot0yo58.github.io/battletrinity-cup/images/summer4.png"
+    ],
+    "url": "https://ot0yo58.github.io/battletrinity-cup/"
   }
   </script>
-
-  <!-- JS は defer でブロッキング回避 -->
-  <script src="js/jquery-3.7.1.min.js" defer></script>
-  <script src="js/script.js" defer></script>
 </head>
-<body>
-  <header class="fixed-header">
-    <h1 id="header-title">BATTLE TRINITY CUP</h1>
-    <nav>
-      <ul>
-        <li><a href="#home" class="nav-link" data-section="home">ホーム</a></li>
-        <li><a href="#events" class="nav-link" data-section="events">活動内容</a></li>
-        <li><a href="#winners" class="nav-link" data-section="winners">優勝者</a></li>
-        <li><a href="#overview" class="nav-link" data-section="overview">大会概要</a></li>
-        <li>
-          <a href="#news" class="nav-link" data-section="news">最新情報</a>
-          <span class="new-badge">New!!</span>
-        </li>
-      </ul>
-    </nav>
+
+<body id="top">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo page-link" href="#home" data-page="home" aria-label="トップへ">
+        <span class="logo-main">BATTLE TRINITY CUP</span>
+        <span class="logo-sub">Unofficial Tournament</span>
+      </a>
+
+      <button class="menu-button" type="button" aria-label="メニューを開く" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" aria-label="グローバルナビゲーション">
+        <a class="page-link active" href="#home" data-page="home">トップ</a>
+        <a class="page-link" href="#latest" data-page="latest">最新大会</a>
+        <a class="page-link" href="#entry" data-page="entry">エントリー</a>
+        <a class="page-link" href="#overview" data-page="overview">大会概要</a>
+        <a class="page-link" href="#past-events" data-page="past-events">過去大会</a>
+        <a class="page-link" href="#winners" data-page="winners">優勝者</a>
+      </nav>
+    </div>
   </header>
 
-  <div class="container">
-    <!-- ホーム -->
-    <section id="home" class="section">
-      <div class="hero">
-        <div class="slideshow" aria-label="大会スライドショー（第一回・第二回のキービジュアル）"></div>
-        <div class="hero-content">
-          <h2><span class="hero-title-part1">圧倒的大規模な</span><br class="mobile-break"><span class="hero-title-part2">大会がここに！</span></h2>
-          <p>熱い戦いが待ってるぜ！</p>
-          <a href="#news" class="btn nav-link" data-section="news">第三回サマーカップエントリーはこちら</a>
+  <main class="page-wrapper">
+    <!-- トップ -->
+    <section id="home" class="page-section hero-page active">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+
+      <div class="page-inner hero-inner">
+        <p class="eyebrow">Dragon Quest X Battle Trinity Unofficial Event</p>
+
+        <h1>
+          4th<br>
+          BATTLE TRINITY<br>
+          SUMMER CUP
+        </h1>
+
+        <p class="hero-lead">
+          真夏のトリニティ大会、ふたたび。<br>
+          4th SUMMER CUP、開催決定。
+        </p>
+
+        <div class="hero-info">
+          <div>
+            <span>開催日</span>
+            <strong>2026.09.12</strong>
+            <small>開催決定</small>
+          </div>
+          <div>
+            <span>抽選会</span>
+            <strong>未定</strong>
+            <small>続報をお待ちください</small>
+          </div>
+          <div>
+            <span>エントリー</span>
+            <strong>未定</strong>
+            <small>詳細発表待ち</small>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary page-link" href="#latest" data-page="latest">最新大会情報を見る</a>
+          <a class="btn btn-outline page-link" href="#winners" data-page="winners">歴代優勝チームを見る</a>
         </div>
       </div>
     </section>
 
-    <!-- 最新情報 -->
-    <section id="news" class="section">
-      <h2>最新情報</h2>
-      <div class="news-image" role="img" aria-label="第三回サマーカップ告知画像"></div>
-      <div class="news-buttons">
-        <a href="#entry" class="btn news-button nav-link" data-section="entry">エントリーはこちら</a>
-      </div>
-      <div class="news-content">
-        <h3>大会概要</h3>
-        <p><strong>日付</strong>：07月26日 22:00</p>
-        <p><strong>抽選会</strong>：07月19日 22:00 モモくんチャンネル</p>
-        <p><strong>エントリー期間</strong>：06月06日 ～ 07月18日</p>
-        <p><strong>エントリー方法</strong>：以下窓口までご連絡もしくはホームページにてエントリーお願いします。</p>
-        <p><strong>エントリー</strong>：ヤング・ガン（DO-610-783） ミニア（UQ-371-321）</p>
-        <p><strong>賞金総額</strong>：？？？</p>
-        <p><strong>注意事項</strong>：通例通りブラックリストは"なし"でお願いいたします。当日は動画配信を行います。</p>
-        <p><strong>運営メンバー</strong>：</p>
-        <ul>
-          <li>ヤング・ガン</li><li>リオータ</li><li>とも</li><li>モモくん</li><li>ムーラ</li>
-          <li>ミニア</li><li>もぅりん</li><li>やわら</li><li>テレサ</li><li>ミズシマ</li>
-          <li>ゆかりん</li><li>おとよさん</li>
-        </ul>
+    <!-- 最新大会 -->
+    <section id="latest" class="page-section">
+      <div class="page-bg"></div>
+
+      <div class="page-inner">
+        <div class="section-heading">
+          <p class="section-kicker">Latest Event</p>
+          <h2>最新大会情報</h2>
+          <p>4th SUMMER CUPの開催が決定しました。開催日以外の詳細は、決まり次第こちらに掲載します。</p>
+        </div>
+
+        <div class="latest-grid compact-grid">
+          <div class="latest-visual">
+            <img src="images/summer4.png" alt="4th BATTLE TRINITY SUMMER CUP 告知画像">
+          </div>
+
+          <div class="latest-card">
+            <span class="status-badge">開催決定</span>
+            <h3>4th BATTLE TRINITY<br>SUMMER CUP</h3>
+
+            <dl class="event-detail-list">
+              <div>
+                <dt>開催日</dt>
+                <dd>2026年09月12日</dd>
+              </div>
+              <div>
+                <dt>開催時間</dt>
+                <dd>未定</dd>
+              </div>
+              <div>
+                <dt>抽選会</dt>
+                <dd>未定</dd>
+              </div>
+              <div>
+                <dt>エントリー期間</dt>
+                <dd>未定</dd>
+              </div>
+              <div>
+                <dt>賞金総額</dt>
+                <dd>未定</dd>
+              </div>
+              <div>
+                <dt>お知らせ</dt>
+                <dd>4th SUMMER CUP開催決定。詳細は決まり次第、順次公開予定です。</dd>
+              </div>
+            </dl>
+
+            <a class="btn btn-primary full-width page-link" href="#entry" data-page="entry">エントリー情報を見る</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 活動内容（個別ページへ遷移） -->
-    <section id="events" class="section">
-      <h2>活動内容</h2>
-      <p>※各画像をクリックすると、当日のPVと大会動画を見ることができます。</p>
-      <div class="gallery">
-        <a href="summer1.html" class="gallery-item">
-          <img src="images/summer1.jpg" alt="第一回サマーカップのキービジュアル" class="gallery-img">
-          <div class="overlay">第一回<br>バトルトリニティ<br>サマーカップ</div>
-        </a>
-        <a href="winter1.html" class="gallery-item">
-          <img src="images/winter1.jpg" alt="第一回ウィンターカップのキービジュアル" class="gallery-img">
-          <div class="overlay">第一回<br>バトルトリニティ<br>ウィンターカップ</div>
-        </a>
-        <a href="summer2.html" class="gallery-item">
-          <img src="images/summer2.jpg" alt="第二回サマーカップのキービジュアル" class="gallery-img">
-          <div class="overlay">第二回<br>バトルトリニティ<br>サマーカップ</div>
-        </a>
-        <a href="winter2.html" class="gallery-item">
-          <img src="images/winter2.jpg" alt="第二回ウィンターカップのキービジュアル" class="gallery-img">
-          <div class="overlay">第二回<br>バトルトリニティ<br>ウィンターカップ</div>
-        </a>
-      </div>
-    </section>
+    <!-- エントリー -->
+    <section id="entry" class="page-section">
+      <div class="page-bg"></div>
 
-    <!-- 優勝者 -->
-    <section id="winners" class="section">
-      <h2>優勝者</h2>
-      <div class="winners-gallery">
-        <div class="winner">
-          <img src="images/winner1.jpg" alt="第一回サマーカップ優勝チーム 南瓜軍団(仮) の集合写真" class="gallery-img">
-          <p class="winner-name">【チーム名】<br>南瓜軍団(仮)</p>
-          <p class="winner-menber">【メンバー】<br>ゴン<br>わたる<br>ティアラ<br>アリーシャ<br>モンキー</p>
+      <div class="page-inner">
+        <div class="section-heading">
+          <p class="section-kicker">Entry</p>
+          <h2>エントリー方法</h2>
+          <p>4th SUMMER CUPのエントリー詳細は現在未定です。エントリー期間・受付方法・連絡先は、決まり次第公開します。</p>
         </div>
-        <div class="winner">
-          <img src="images/winner2.jpg" alt="第一回ウィンターカップ優勝チーム 真夜中のはちみつ☆シリアル の集合写真" class="gallery-img">
-          <p class="winner-name">【チーム名】<br>真夜中のはちみつ☆シリアル</p>
-          <p class="winner-menber">【メンバー】<br>ミオ<br>アルカード<br>よー<br>りー<br>シオン</p>
+
+        <div class="contact-panel">
+          <h3>エントリー受付</h3>
+          <p class="pending-text">
+            現在準備中です。エントリー開始日、受付窓口、必要事項は決まり次第こちらに掲載します。
+          </p>
         </div>
-        <div class="winner">
-          <img src="images/winner3.jpg" alt="第二回サマーカップ優勝チーム おしおきJAPAN 滅 の集合写真" class="gallery-img">
-          <p class="winner-name">【チーム名】<br>おしおきJAPAN  滅</p>
-          <p class="winner-menber">【メンバー】<br>デロデロのユ<br>キラリス<br>ろでっち<br>ぬめたん<br>ちき</p>
+
+        <div class="entry-grid">
+          <div class="info-card">
+            <h3>現在未定の項目</h3>
+            <ul class="check-list">
+              <li>エントリー開始日</li>
+              <li>エントリー締切日</li>
+              <li>抽選会の日程</li>
+              <li>賞金総額</li>
+              <li>当日の詳細スケジュール</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>参加予定の方へ</h3>
+            <p>
+              4th SUMMER CUPは2026年09月12日に開催予定です。
+              チーム参加、少人数参加、運営マッチングなどの詳細は、続報をお待ちください。
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- 大会概要 -->
-    <section id="overview" class="section">
-      <h2>大会概要</h2>
-      <div class="overview-content">
-        <h3>大会の目的</h3>
-        <p>バトルトリニティのコンテンツの活性化が目的で、勝った人も負けた人も楽しめる大会を目指して運営してます。</p>
+    <section id="overview" class="page-section">
+      <div class="page-bg"></div>
 
-        <h3>お願い</h3>
-        <ul>
-          <li>前回総勢150名で行われたこの大会は、お祭りのイメージなので気楽に楽しみましょう！</li>
-          <li>ブラックリストやNGはなし、勝ち捨てもなしでお願いします！</li>
-          <li>どの試合も1位を狙って競い合いましょう！</li>
-          <li>初心者さんから上級者さんまで幅広く参加いただいています！</li>
-          <li>5人に満たなくても運営マッチングで調整し、1人から参加可能です！</li>
-        </ul>
+      <div class="page-inner">
+        <div class="section-heading">
+          <p class="section-kicker">About</p>
+          <h2>大会概要</h2>
+          <p>この大会は、バトルトリニティをもっと楽しく、もっと盛り上げるための非公式イベントです。</p>
+        </div>
 
-        <h3>運営マッチング</h3>
-        <ul style="list-style-type:none;margin:0;padding:0;">
-          <li>参加したいけど5人集まらない…チームより気楽に一期一会で遊びたい！</li>
-          <li>そんな要望を叶えるのが、運営マッチングです。</li>
-          <li>少人数参加の方々を運営からそれぞれに紹介します。</li>
-          <li>真剣/気楽など温度感のミスマッチにも配慮します。</li>
-        </ul>
-        <img src="images/info.png" alt="運営マッチングの仕組み図" class="overview-image">
+        <div class="overview-layout">
+          <div class="overview-text">
+            <div class="info-card">
+              <h3>大会の目的</h3>
+              <p>
+                バトルトリニティのコンテンツ活性化を目的として、勝った人も負けた人も楽しめる大会を目指して運営しています。
+                初心者から上級者まで、幅広いプレイヤーが気軽に参加できるお祭りのような大会です。
+              </p>
+            </div>
+
+            <div class="info-card">
+              <h3>参加時のお願い</h3>
+              <ul class="check-list">
+                <li>ブラックリストやNGはなしでお願いします。</li>
+                <li>勝ち捨てはなしでお願いします。</li>
+                <li>どの試合も1位を狙って競い合いましょう。</li>
+                <li>大会当日は動画配信を行います。</li>
+                <li>参加者同士で気持ちよく遊べる雰囲気づくりにご協力ください。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="matching-card">
+            <h3>運営マッチング</h3>
+            <p>
+              「参加したいけど5人集まらない」「チームより気楽に一期一会で遊びたい」
+              そんな方のために、運営側で少人数参加者同士のマッチングを行います。
+            </p>
+            <p>
+              真剣に勝ちを狙いたい方、気楽に楽しみたい方など、温度感のミスマッチにもできるだけ配慮します。
+            </p>
+            <img src="images/info.png" alt="運営マッチングの説明画像">
+          </div>
+        </div>
+
+        <div class="staff-panel">
+          <h3>運営メンバー</h3>
+          <ul class="staff-list">
+            <li>ヤング・ガン</li>
+            <li>リオータ</li>
+            <li>とも</li>
+            <li>モモくん</li>
+            <li>ムーラ</li>
+            <li>ミニア</li>
+            <li>もぅりん</li>
+            <li>やわら</li>
+            <li>テレサ</li>
+            <li>ミズシマ</li>
+            <li>ゆかりん</li>
+            <li>おとよさん</li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <!-- エントリー -->
-    <section id="entry" class="section">
-      <h2>エントリー</h2>
-      <div class="entry-content">
-        <p>エントリーされる方は、<strong>ヤング・ガン（DO-610-783）</strong> もしくは <strong>ミニア（UQ-371-321）</strong> までご連絡ください。</p>
-        <p>以下内容をご準備いただくことでスムーズにやり取りが進みます。</p>
-        <h3>5人以上のチームで参加ご希望の方</h3>
-        <ol>
-          <li>チーム名</li><li>リーダー</li><li>リーダーキャラID</li><li>配信可否</li><li>ディスコード可否</li><li>連絡手段</li><li>メンバー</li>
-        </ol>
-        <h3>1名以上4人以下で参加ご希望の方</h3>
-        <ol>
-          <li>代表者</li><li>代表者キャラID</li><li>配信可否</li><li>ディスコード可否</li><li>連絡手段</li><li>メンバー</li>
-        </ol>
+    <!-- 過去大会 -->
+    <section id="past-events" class="page-section">
+      <div class="page-bg"></div>
+
+      <div class="page-inner">
+        <div class="section-heading">
+          <p class="section-kicker">Archive</p>
+          <h2>過去大会</h2>
+          <p>各大会画像をクリックすると、PVや大会動画を確認できます。</p>
+        </div>
+
+        <div class="event-gallery">
+          <a class="event-card" href="summer1.html">
+            <img src="images/summer1.jpg" alt="1st SUMMER CUP">
+            <div class="event-card-body">
+              <span>2023.07.15</span>
+              <h3>1st SUMMER CUP</h3>
+              <p>クリックでPV・大会動画を見る</p>
+            </div>
+          </a>
+
+          <a class="event-card" href="winter1.html">
+            <img src="images/winter1.jpg" alt="1st WINTER CUP">
+            <div class="event-card-body">
+              <span>2023.12.10</span>
+              <h3>1st WINTER CUP</h3>
+              <p>クリックでPV・大会動画を見る</p>
+            </div>
+          </a>
+
+          <a class="event-card" href="summer2.html">
+            <img src="images/summer2.jpg" alt="2nd SUMMER CUP">
+            <div class="event-card-body">
+              <span>2024.07.20</span>
+              <h3>2nd SUMMER CUP</h3>
+              <p>クリックでPV・大会動画を見る</p>
+            </div>
+          </a>
+
+          <a class="event-card" href="winter2.html">
+            <img src="images/winter2.jpg" alt="2nd WINTER CUP">
+            <div class="event-card-body">
+              <span>2024.12.15</span>
+              <h3>2nd WINTER CUP</h3>
+              <p>クリックでPVを見る</p>
+            </div>
+          </a>
+
+          <a class="event-card" href="summer3.html">
+            <img src="images/summer3.jpg" alt="3rd SUMMER CUP">
+            <div class="event-card-body">
+              <span>2025.07.26</span>
+              <h3>3rd SUMMER CUP</h3>
+              <p>クリックで大会動画を見る</p>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
+
+    <!-- 優勝者 -->
+    <section id="winners" class="page-section">
+      <div class="page-bg"></div>
+
+      <div class="page-inner">
+        <div class="section-heading">
+          <p class="section-kicker">Champions</p>
+          <h2>歴代優勝チーム</h2>
+          <p>優勝チームのカードをクリックすると、画像全体と称賛メッセージを表示します。</p>
+        </div>
+
+        <div class="winners-gallery">
+          <article
+            class="winner-card winner-modal-trigger defending-champion"
+            tabindex="0"
+            role="button"
+            aria-label="チームかわいいの優勝詳細を見る"
+            data-event="3rd SUMMER CUP"
+            data-team="チームかわいい"
+            data-members="ムギ / ソルート / ぽっぴぃぃ / メロ / ぴーち"
+            data-image="images/summer4.png"
+            data-message="3rd SUMMER CUPを制した前回王者。名前はかわいい、でも勝ち方はかわいいだけでは済まされない。まさに、かわいさと強さの二刀流。"
+          >
+            <img src="images/summer4.png" alt="3rd SUMMER CUP 優勝チーム チームかわいい">
+            <div class="winner-body">
+              <span>3rd SUMMER CUP / 前回王者</span>
+              <h3>チームかわいい</h3>
+              <p>ムギ / ソルート / ぽっぴぃぃ / メロ / ぴーち</p>
+              <small>クリックで詳細を見る</small>
+            </div>
+          </article>
+
+          <article
+            class="winner-card winner-modal-trigger"
+            tabindex="0"
+            role="button"
+            aria-label="南瓜軍団(仮)の優勝詳細を見る"
+            data-event="1st SUMMER CUP"
+            data-team="南瓜軍団(仮)"
+            data-members="ゴン / わたる / ティアラ / アリーシャ / モンキー"
+            data-image="images/winner1.jpg"
+            data-message="激戦を制し、1st SUMMER CUP王者に輝いたチーム。その勝利は、BATTLE TRINITY CUPの歴史の始まり。初代王者って、やっぱり記憶に残るよね。"
+          >
+            <img src="images/winner1.jpg" alt="1st SUMMER CUP 優勝チーム 南瓜軍団(仮)">
+            <div class="winner-body">
+              <span>1st SUMMER CUP</span>
+              <h3>南瓜軍団(仮)</h3>
+              <p>ゴン / わたる / ティアラ / アリーシャ / モンキー</p>
+              <small>クリックで詳細を見る</small>
+            </div>
+          </article>
+
+          <article
+            class="winner-card winner-modal-trigger"
+            tabindex="0"
+            role="button"
+            aria-label="真夜中のはちみつ☆シリアルの優勝詳細を見る"
+            data-event="1st WINTER CUP"
+            data-team="真夜中のはちみつ☆シリアル"
+            data-members="ミオ / アルカード / よー / りー / シオン"
+            data-image="images/winner2.jpg"
+            data-message="冬の舞台で頂点をつかみ、1st WINTER CUP王者となったチーム。仲間との連携と勝負強さは、蜂の群れを想像させました。恐ろしい・・・"
+          >
+            <img src="images/winner2.jpg" alt="1st WINTER CUP 優勝チーム 真夜中のはちみつ☆シリアル">
+            <div class="winner-body">
+              <span>1st WINTER CUP</span>
+              <h3>真夜中のはちみつ☆シリアル</h3>
+              <p>ミオ / アルカード / よー / りー / シオン</p>
+              <small>クリックで詳細を見る</small>
+            </div>
+          </article>
+
+          <article
+            class="winner-card winner-modal-trigger"
+            tabindex="0"
+            role="button"
+            aria-label="おしおきJAPAN 滅の優勝詳細を見る"
+            data-event="2nd SUMMER CUP"
+            data-team="おしおきJAPAN 滅"
+            data-members="デロデロのユ / キラリス / ろでっち / ぬめたん / ちき"
+            data-image="images/winner3.jpg"
+            data-message="2nd SUMMER CUPを制し、夏の王者として名を刻んだチーム。月に代わってお仕置きされる側かと思いきや、まさかのする側。にしてもキャラが濃い。笑"
+          >
+            <img src="images/winner3.jpg" alt="2nd SUMMER CUP 優勝チーム おしおきJAPAN 滅">
+            <div class="winner-body">
+              <span>2nd SUMMER CUP</span>
+              <h3>おしおきJAPAN 滅</h3>
+              <p>デロデロのユ / キラリス / ろでっち / ぬめたん / ちき</p>
+              <small>クリックで詳細を見る</small>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 優勝者モーダル -->
+  <div class="winner-modal" aria-hidden="true">
+    <div class="winner-modal-overlay" data-modal-close></div>
+
+    <div class="winner-modal-content" role="dialog" aria-modal="true" aria-labelledby="winner-modal-title">
+      <button class="winner-modal-close" type="button" aria-label="閉じる" data-modal-close>×</button>
+
+      <div class="winner-modal-image-wrap">
+        <img class="winner-modal-image" src="" alt="">
+      </div>
+
+      <div class="winner-modal-body">
+        <p class="winner-modal-kicker">WINNER</p>
+        <p class="winner-modal-event"></p>
+        <h2 id="winner-modal-title" class="winner-modal-team"></h2>
+        <p class="winner-modal-members"></p>
+        <p class="winner-modal-message"></p>
+      </div>
+    </div>
   </div>
 
-  <footer><p>© 2025 バトルトリニティ大会</p></footer>
-  <a href="#home" class="back-to-top nav-link" data-section="home" aria-label="ページ先頭へ戻る">TOP</a>
-
-  <noscript>
-    このサイトはJavaScriptで各セクションを切り替えています。最新情報（第三回サマーカップ：開始07/26 22:00・抽選会07/19 22:00・エントリー06/06〜07/18）、歴代優勝者、運営マッチングの説明、エントリー方法などの詳細は本文をご覧ください。
-  </noscript>
+  <footer class="site-footer">
+    <p>© 2025 BATTLE TRINITY CUP</p>
+    <p>Dragon Quest X Battle Trinity Unofficial Tournament Site</p>
+  </footer>
 </body>
 </html>

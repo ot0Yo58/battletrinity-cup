@@ -591,22 +591,8 @@ img {
   object-position: center;
 }
 
-.event-gallery .event-card:nth-child(1) img,
-.event-gallery .event-card:nth-child(2) img,
-.event-gallery .event-card:nth-child(3) img,
-.event-gallery .event-card:nth-child(4) img,
-.event-gallery .event-card:nth-child(5) img {
-  object-position: center;
-}
-
 .winners-gallery .winner-card:nth-child(1) img {
   object-position: center 34%;
-}
-
-.winners-gallery .winner-card:nth-child(2) img,
-.winners-gallery .winner-card:nth-child(3) img,
-.winners-gallery .winner-card:nth-child(4) img {
-  object-position: center;
 }
 
 .event-card-body,
@@ -889,6 +875,70 @@ img {
   font-weight: 800;
 }
 
+.subpage-archive-nav {
+  position: absolute;
+  top: 110px;
+  right: 22px;
+  width: min(520px, 45%);
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(18, 24, 46, 0.72);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.subpage-archive-nav h2 {
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+.archive-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.archive-nav-links a,
+.archive-nav-links .current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.archive-nav-links a {
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  transition: 0.2s ease;
+}
+
+.archive-nav-links a:hover {
+  color: var(--text);
+  border-color: rgba(34, 211, 238, 0.45);
+  background: rgba(34, 211, 238, 0.12);
+  transform: translateY(-2px);
+}
+
+.archive-nav-links .current {
+  color: #07101f;
+  background: var(--accent-3);
+  border-color: transparent;
+}
+
+.archive-nav-links .back-to-archive {
+  color: #07101f;
+  background: linear-gradient(135deg, var(--accent), #67e8f9);
+  border-color: transparent;
+}
+
 .video-section {
   max-width: 980px;
   margin: 0 auto;
@@ -988,6 +1038,12 @@ img {
   .page-inner {
     padding-top: 42px;
     padding-bottom: 42px;
+  }
+
+  .subpage-archive-nav {
+    position: static;
+    width: 100%;
+    margin-top: 28px;
   }
 
   .winner-modal-content {
@@ -1151,6 +1207,19 @@ img {
 
   .subpage-hero h1 {
     font-size: clamp(2.35rem, 12vw, 4rem);
+  }
+
+  .subpage-archive-nav {
+    padding: 18px;
+  }
+
+  .archive-nav-links {
+    flex-direction: column;
+  }
+
+  .archive-nav-links a,
+  .archive-nav-links .current {
+    width: 100%;
   }
 
   .winner-modal {
